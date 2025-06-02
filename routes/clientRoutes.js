@@ -1,7 +1,7 @@
-// routes/clientRoutes.js 
-const express = require('express'); 
-const router = express.Router(); 
-const clientController = require('../controllers/clientController'); 
+// routes/clientRoutes.js
+const express = require('express');
+const router = express.Router();
+const clientController = require('../controllers/clientController');
 
 /**
  * @swagger
@@ -9,7 +9,6 @@ const clientController = require('../controllers/clientController');
  *   name: Clientes
  *   description: Endpoints para gestionar clientes
  */
-
 
 /**
  * @swagger
@@ -19,17 +18,17 @@ const clientController = require('../controllers/clientController');
  *     tags: [Clientes]
  *     responses:
  *       200:
-            description: Lista de clientes
-            content:
-            application/json:
-                schema:
-                type: array
-                items:
-                    $ref: '#/components/schemas/Cliente'
-        500:
-            description: Error en el servidor
+ *         description: Lista de clientes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Cliente'
+ *       500:
+ *         description: Error en el servidor
  */
-router.get('/', clientController.searchClient); 
+router.get('/', clientController.searchClient);
 
 /**
  * @swagger
@@ -58,7 +57,7 @@ router.get('/', clientController.searchClient);
  *       500:
  *         description: Error del servidor
  */
-router.get('/:id', clientController.searchClientById); 
+router.get('/:id', clientController.searchClientById);
 
 /**
  * @swagger
@@ -80,7 +79,7 @@ router.get('/:id', clientController.searchClientById);
  *       500:
  *         description: Error del servidor
  */
-router.post('/', clientController.newClient); 
+router.post('/', clientController.newClient);
 
 /**
  * @swagger
@@ -136,4 +135,4 @@ router.put('/:id', clientController.updateClient);
  */
 router.delete('/:id', clientController.deleteClient);
 
-module.exports = router; 
+module.exports = router;

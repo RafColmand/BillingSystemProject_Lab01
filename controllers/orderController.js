@@ -70,7 +70,7 @@ exports.newOrder = async (req, res) => {
       await transaction.rollback();
       return res.status(404).json({ error: `El cliente con la ID ${id_cliente} no existe` });
     }
-    
+
     const request = new sql.Request(transaction);
     // Insertar orden con total temporal
     const ordenResult = await request
@@ -84,7 +84,7 @@ exports.newOrder = async (req, res) => {
 
     // Insertar detalles y calcular total
     for (const detalle of detalles) {
-      const { id_producto, cantidad, descuento} = detalle;
+      const { id_producto, cantidad, descuento } = detalle;
 
       // NUEVO REQUEST para esta iteración
       const detalleRequest = new sql.Request(transaction);
@@ -105,8 +105,8 @@ exports.newOrder = async (req, res) => {
         return res.status(400).json({ error: `La cantidad ingresada para el producto con ID ${id_producto} supera el stock disponible` });
       }
 
-      if (descuento > 100){
-        return res.status(400).json({error: "Porcentaje ingresado no valido"})
+      if (descuento > 100) {
+        return res.status(400).json({ error: "Porcentaje ingresado no valido" })
       }
 
       const subtotal = cantidad * precio;
@@ -122,8 +122,8 @@ exports.newOrder = async (req, res) => {
         .input('cantidad', sql.Int, cantidad)
         .input('precio', sql.Decimal(10, 2), precio)
         .input('subtotal', sql.Decimal(10, 2), subtotal)
-        .input('impuesto', sql.Decimal(10, 2), impuesto)
-        .input('descuento', sql.Decimal(10, 2), descuento)
+        .input('impuesto', sql.Decimal(10, 2), totalImpuesto)
+        .input('descuento', sql.Decimal(10, 2), totalDescuento)
         .query(`
           INSERT INTO DetalleOrden (id_orden, id_producto, cantidad, precio, subtotal, impuesto, descuento)
           VALUES (@id_orden, @id_producto, @cantidad, @precio, @subtotal, @impuesto, @descuento)
@@ -178,9 +178,9 @@ exports.updateOrder = async (req, res) => {
     // Actualizar cliente
     const checkOrderRequest = new sql.Request(transaction);
     await checkOrderRequest
-    .input('id_orden', sql.Int, id_orden)
-    .input('id_cliente', sql.Int, id_cliente)
-    .query('UPDATE Ordenes SET id_cliente = @id_cliente WHERE id_orden = @id_orden');
+      .input('id_orden', sql.Int, id_orden)
+      .input('id_cliente', sql.Int, id_cliente)
+      .query('UPDATE Ordenes SET id_cliente = @id_cliente WHERE id_orden = @id_orden');
 
     // Eliminar detalles anteriores
     const deleteDetailsRequest = new sql.Request(transaction);
@@ -192,7 +192,7 @@ exports.updateOrder = async (req, res) => {
     let totalOrden = 0;
 
     for (const detalle of detalles) {
-      const { id_producto, cantidad,  descuento } = detalle;
+      const { id_producto, cantidad, descuento } = detalle;
 
       const productoRequest = new sql.Request(transaction);
       const productoResult = await productoRequest

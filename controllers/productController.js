@@ -5,7 +5,7 @@ const { poolPromise } = require('../db');
 
 
 // Consultar todos los productos
-exports.getAllProducts = async (req, res) => {
+exports.searchProducts = async (req, res) => {
   try {
     const pool = await poolPromise;
     const result = await pool.request().query('SELECT * FROM Productos');
@@ -18,7 +18,7 @@ exports.getAllProducts = async (req, res) => {
 };
 
 // Consultar un producto por su ID
-exports.getProductById = async (req, res) => {
+exports.searchProductById = async (req, res) => {
   const id_producto = parseInt(req.params.id, 10);
 
   if (isNaN(id_producto)) {
@@ -43,10 +43,10 @@ exports.getProductById = async (req, res) => {
 };
 
 // Crear un nuevo producto
-exports.createProduct = async (req, res) => {
-  const { nombre, descripcion, categoria, precio, impuesto, stock} = req.body;
+exports.newProduct = async (req, res) => {
+  const { nombre, descripcion, categoria, precio, impuesto, stock } = req.body;
 
-  if (!nombre || !descripcion || !categoria || precio == null || impuesto == null || stock== null) {
+  if (!nombre || !descripcion || !categoria || precio == null || impuesto == null || stock == null) {
     return res.status(400).json({ message: 'Todos los datos son requeridos' });
   }
 

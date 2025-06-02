@@ -6,8 +6,8 @@ const orderController = require('../controllers/orderController');
 /**
  * @swagger
  * tags:
- *   name: Clientes
- *   description: Endpoints para gestionar clientes
+ *   name: Órdenes
+ *   description: Endpoints para gestionar órdenes
  */
 
 /**
@@ -49,7 +49,7 @@ router.get('/', orderController.searchOrders);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/OrdenConDetalles'
+ *               $ref: '#/components/schemas/Orden'
  *       400:
  *         description: ID inválido
  *       404:

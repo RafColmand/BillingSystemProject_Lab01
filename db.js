@@ -4,11 +4,11 @@ const sql = require('mssql');
 const config = {
     user: 'sa',
     password: 'Memt1604*',
-    server: 'localhost', 
-    database: 'BillingProjectDB',
+    server: 'localhost',
+    database: 'PruebaDB',
     options: {
-        encrypt: false, 
-        trustServerCertificate: true 
+        encrypt: false,
+        trustServerCertificate: true
     }
 };
 

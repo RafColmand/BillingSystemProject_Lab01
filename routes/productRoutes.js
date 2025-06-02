@@ -1,7 +1,7 @@
 // routes/productRoutes.js 
-const express = require('express'); 
-const router = express.Router(); 
-const productController = require('../controllers/productController'); 
+const express = require('express');
+const router = express.Router();
+const productController = require('../controllers/productController');
 
 /**
  * @swagger
@@ -30,7 +30,7 @@ const productController = require('../controllers/productController');
          500:
             description: Error en el servidor
  */
-router.get('/', productController.getAllProducts); 
+router.get('/', productController.searchProducts);
 
 /**
  * @swagger
@@ -59,7 +59,7 @@ router.get('/', productController.getAllProducts);
          500:
             description: Error en el servidor
  */
-router.get('/:id', productController.getProductById); 
+router.get('/:id', productController.searchProductById);
 
 /**
  * @swagger
@@ -85,7 +85,7 @@ router.get('/:id', productController.getProductById);
          500:
             description: Error en el servidor
  */
-router.post('/', productController.createProduct); 
+router.post('/', productController.newProduct);
 
 /**
  * @swagger
@@ -116,7 +116,7 @@ router.post('/', productController.createProduct);
          500:
             description: Error en el servidor
  */
-router.put('/:id', productController.updateProduct); 
+router.put('/:id', productController.updateProduct);
 
 /**
  * @swagger
