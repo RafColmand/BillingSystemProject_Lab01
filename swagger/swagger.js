@@ -40,7 +40,6 @@ const options = {
             estado: "activo"
           }
         },
-
         Producto: {
           type: 'object',
           required: ['nombre', 'descripcion', 'categoria', 'precio', 'stock'],
@@ -66,7 +65,6 @@ const options = {
             impuesto: 8
           }
         },
-
         Orden: {
           type: 'object',
           required: ['id_cliente', 'estado', 'detalles'],
@@ -215,8 +213,199 @@ const options = {
             clave: "IsaMir1234*",
             estado: "activo"
           }
-        }
-
+        },
+        Tienda: {
+          type: 'object',
+          required: ['nombre', 'direccion', 'correo', 'informacion_legal'],
+          properties: {
+            id_tienda: {
+              type: 'integer',
+              description: 'ID único de la tienda (generado automáticamente)',
+              readOnly: true
+            },
+            nombre: {
+              type: 'string',
+              description: 'Nombre de la tienda'
+            },
+            direccion: {
+              type: 'string',
+              description: 'Dirección física de la tienda'
+            },
+            correo: {
+              type: 'string',
+              format: 'email',
+              description: 'Correo electrónico de contacto de la tienda'
+            },
+            informacion_legal: {
+              type: 'string',
+              description: 'Información legal relacionada con la tienda'
+            }
+          },
+          example: {
+            id_tienda: 1,
+            nombre: "TodoMarket",
+            direccion: "Av. Principal 58, Barquisimeto",
+            correo: "todomarket@gmail.com",
+            informacion_legal: "RIF: J-12345678-9"
+          }
+        },
+        TiendaInput: {
+          type: 'object',
+          required: ['nombre', 'direccion', 'correo', 'informacion_legal'],
+          properties: {
+            nombre: {
+              type: 'string',
+              description: 'Nombre de la tienda'
+            },
+            direccion: {
+              type: 'string',
+              description: 'Dirección física de la tienda'
+            },
+            correo: {
+              type: 'string',
+              format: 'email',
+              description: 'Correo electrónico de contacto de la tienda'
+            },
+            informacion_legal: {
+              type: 'string',
+              description: 'Información legal relacionada con la tienda'
+            }
+          },
+          example: {
+            nombre: "TodoMarket",
+            direccion: "Av. Principal 58, Barquisimeto",
+            correo: "todomarket@gmail.com",
+            informacion_legal: "RIF: J-12345678-9"
+          }
+        },
+        Factura: {
+          type: 'object',
+          required: ['id_orden', 'id_usuario', 'id_tienda', 'metodo_pago'],
+          properties: {
+            id_factura: {
+              type: 'integer',
+              description: 'ID único de la factura (generado automáticamente)',
+              readOnly: true
+            },
+            id_orden: {
+              type: 'integer',
+              description: 'ID de la orden asociada a la factura'
+            },
+            id_cliente: {
+              type: 'integer',
+              description: 'ID del cliente asociado a la orden',
+              readOnly: true
+            },
+            id_usuario: {
+              type: 'integer',
+              description: 'ID del usuario que creó la factura'
+            },
+            id_tienda: {
+              type: 'integer',
+              description: 'ID de la tienda donde se generó la factura'
+            },
+            total_bruto: {
+              type: 'number',
+              format: 'float',
+              description: 'Total bruto calculado desde los detalles de la orden',
+              readOnly: true
+            },
+            impuestos: {
+              type: 'number',
+              format: 'float',
+              description: 'Total de impuestos aplicados',
+              readOnly: true
+            },
+            descuentos: {
+              type: 'number',
+              format: 'float',
+              description: 'Total de descuentos aplicados',
+              readOnly: true
+            },
+            total_neto: {
+              type: 'number',
+              format: 'float',
+              description: 'Total neto (total_bruto + impuestos - descuentos)',
+              readOnly: true
+            },
+            estado: {
+              type: 'string',
+              description: 'Estado actual de la factura',
+              enum: ['emitida', 'cancelada', 'pendiente']
+            },
+            metodo_pago: {
+              type: 'string',
+              description: 'Método de pago utilizado'
+            },
+            observaciones: {
+              type: 'string',
+              description: 'Observaciones adicionales de la factura',
+              nullable: true
+            },
+            fecha_creacion: {
+              type: 'string',
+              format: 'date-time',
+              description: 'Fecha en que se creó la factura',
+              readOnly: true
+            }
+          },
+          example: {
+            id_factura: 1,
+            id_orden: 10,
+            id_cliente: 5,
+            id_usuario: 3,
+            id_tienda: 2,
+            total_bruto: 100.00,
+            impuestos: 16.00,
+            descuentos: 5.00,
+            total_neto: 111.00,
+            estado: "emitida",
+            metodo_pago: "tarjeta",
+            observaciones: "Sin observaciones",
+            fecha_creacion: "2025-06-03T10:00:00Z"
+          }
+        },
+        FacturaInput: {
+          type: 'object',
+          required: ['id_orden', 'id_usuario', 'id_tienda', 'metodo_pago'],
+          properties: {
+            id_orden: {
+              type: 'integer',
+              description: 'ID de la orden asociada a la factura'
+            },
+            id_usuario: {
+              type: 'integer',
+              description: 'ID del usuario que crea la factura'
+            },
+            id_tienda: {
+              type: 'integer',
+              description: 'ID de la tienda donde se genera la factura'
+            },
+            estado: {
+              type: 'string',
+              description: 'Estado actual de la factura',
+              enum: ['emitida', 'cancelada', 'pendiente'],
+              default: 'emitida'
+            },
+            metodo_pago: {
+              type: 'string',
+              description: 'Método de pago utilizado'
+            },
+            observaciones: {
+              type: 'string',
+              description: 'Observaciones adicionales',
+              nullable: true
+            }
+          },
+          example: {
+            id_orden: 10,
+            id_usuario: 3,
+            id_tienda: 2,
+            estado: "emitida",
+            metodo_pago: "tarjeta",
+            observaciones: "Factura sin incidencias"
+          }
+        },
       }
     }
   },
