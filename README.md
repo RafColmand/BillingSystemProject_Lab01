@@ -4,7 +4,7 @@ Rafael Colmenárez - 26.898.848
 
 # Billing System API
 
-Este proyecto es un sistema de facturación RESTful construido con **Node.js**, **Express** y **SQL Server**, que incluye generación de facturas, gestión de productos, clientes, usuarios, roles, órdenes y envío de documentos por correo y SMS.
+Este proyecto es un sistema de facturación RESTful construido con **Node.js**, **Express** y **SQL Server**, que incluye generación de facturas, gestión de productos, clientes, usuarios, roles, órdenes y envío de documentos por correo electrónico.
 
 ## 📦 Tecnologías utilizadas
 
